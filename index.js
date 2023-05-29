@@ -38,7 +38,7 @@ io.on("connection", (Socket)=>{
   })
 
   Socket.on("send_message",(data)=>{
-    console.log('gg',data)
+    console.log('gg',data) 
     //Socket.join(data);
     Socket.to(data.group_id).emit("receive_message",data);
     
