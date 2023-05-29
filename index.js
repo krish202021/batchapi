@@ -9,7 +9,7 @@ const loginController = require('./auth/Controller');
 const StudentController = require('./student/Controller');
 app.use(express.static(process.cwd() + '/public'));
 const { Server, Socket } = require('socket.io');
-const sharp = require('sharp');
+//const sharp = require('sharp');
 const fs = require('fs');
 
 //socket programming
@@ -80,38 +80,38 @@ io.on("connection", (Socket)=>{
       
     // });
     
-    app.post('/batchapi/file-upload', upload.single('image'),async (req, res) => {
-      res.setHeader('Content-Type', 'multipart/form-data');
-      const { filename: image } = req.file;
-      console.log(JSON.stringify(req.file))
-      await sharp(req.file.path)
-       .jpeg({ quality: 30 })
-       .toFile(
-           path.resolve('../public_html/batchmates/images/',image)
-       )
-       fs.unlinkSync(req.file.path)
+    // app.post('/batchapi/file-upload', upload.single('image'),async (req, res) => {
+    //   res.setHeader('Content-Type', 'multipart/form-data');
+    //   const { filename: image } = req.file;
+    //   console.log(JSON.stringify(req.file))
+    //   await sharp(req.file.path)
+    //    .jpeg({ quality: 30 })
+    //    .toFile(
+    //        path.resolve('../public_html/batchmates/images/',image)
+    //    )
+    //    fs.unlinkSync(req.file.path)
       
-       res.send(JSON.stringify({
-          message: "success"
-        }))
-    });
+    //    res.send(JSON.stringify({
+    //       message: "success"
+    //     }))
+    // });
 
     //post image upload
     //! Use of Multer
-    var storage_post = multer.diskStorage({
-      destination: (req, file, callBack) => {
-          callBack(null, '../public_html/batchmates/post_image/resize')     // './public/images/' directory name where save the file
-          console.log('he',file)
-      },
-      filename: (req, file, callBack) => {
-        console.log('le',file)
-          callBack(null, file.originalname)
-      }
-    })
+    // var storage_post = multer.diskStorage({
+    //   destination: (req, file, callBack) => {
+    //       callBack(null, '../public_html/batchmates/post_image/resize')     // './public/images/' directory name where save the file
+    //       console.log('he',file)
+    //   },
+    //   filename: (req, file, callBack) => {
+    //     console.log('le',file)
+    //       callBack(null, file.originalname)
+    //   }
+    // })
     
-    var upload_post = multer({
-      storage: storage_post
-    });
+    // var upload_post = multer({
+    //   storage: storage_post
+    // });
     
     //old
     
@@ -126,21 +126,21 @@ io.on("connection", (Socket)=>{
     
     //new
     
-    app.post('/batchapi/post-image-upload', upload_post.single('image'),async (req, res) => {
-      res.setHeader('Content-Type', 'multipart/form-data');
-      const { filename: image } = req.file;
-      console.log(JSON.stringify(req.file))
-      await sharp(req.file.path)
-       .jpeg({ quality: 60 })
-       .toFile(
-           path.resolve('../public_html/batchmates/post_image/',image)
-       )
-       fs.unlinkSync(req.file.path)
+    // app.post('/batchapi/post-image-upload', upload_post.single('image'),async (req, res) => {
+    //   res.setHeader('Content-Type', 'multipart/form-data');
+    //   const { filename: image } = req.file;
+    //   console.log(JSON.stringify(req.file))
+    //   await sharp(req.file.path)
+    //    .jpeg({ quality: 60 })
+    //    .toFile(
+    //        path.resolve('../public_html/batchmates/post_image/',image)
+    //    )
+    //    fs.unlinkSync(req.file.path)
       
-       res.send(JSON.stringify({
-          message: "success"
-        }))
-    });
+    //    res.send(JSON.stringify({
+    //       message: "success"
+    //     }))
+    // });
 
 
 connection.connect(function(err) {
